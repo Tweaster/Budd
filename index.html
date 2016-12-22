@@ -1,0 +1,59 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+<title>Buddjet Demo Page</title>
+
+
+<!-- stylesheet -->
+<link rel="stylesheet" type="text/css" href="css/style-dev.css" />
+
+<!-- external scripts -->
+<script src="js/jquery-1.11.1.min.js"></script>
+
+<script src="js/buddjet.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+<script>
+    $(document).ready(
+      function ()
+      {
+        if (typeof(Storage) !== "undefined") 
+        {
+            var session = localStorage.getItem(app_id + ".logged-in-session");
+            // if we already have a valid session
+            // then redirect to app page
+            if (session == null || typeof(session) == "undefined")
+            {
+              window.location.href = "login.html";
+            }
+            else
+            {
+              window.location.href = "app.html";
+            }
+        }
+        else 
+        {
+          // TODO redirect to error page
+          // write access to local storage denied to application
+          //alert('FATAL ERROR: ACCESS DENIED TO LOCAL STORAGE');
+          window.location.href = "error/error.html";
+        } 
+        
+      }
+    );
+</script>
+  
+
+</body>
+  
+
+</html>
