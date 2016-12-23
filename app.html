@@ -97,7 +97,7 @@
           // then redirect to app page
           if (session == null || typeof(session) == "undefined")
           {
-            window.location = "login.html";
+            window.location.href = "login.html";
           }
 
       }
@@ -106,7 +106,7 @@
         // TODO redirect to error page
         // write access to local storage denied to application
         //alert('FATAL ERROR: ACCESS DENIED TO LOCAL STORAGE');
-        window.location = "error/error.html";
+        window.location.href = "error/error.html";
       } 
 
       buddjetStart();
