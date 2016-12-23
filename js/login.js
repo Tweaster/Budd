@@ -89,7 +89,7 @@ function signup()
   localStorage.setItem(app_id + ".logged-in-session", session);
 
 
-  //window.location.href = "index.html";
+  //window.location = "index.html";
 
 
   saveSessionAsNewUser();
@@ -184,7 +184,7 @@ function gotoAppPage()
   var raw_data = encodeData(user_data);
   var session = localStorage.getItem(app_id + ".logged-in-session");
   localStorage.setItem(app_id + "." + session + ".data", raw_data);
-  window.location.href = "app.html";
+  window.location = "app.html";
 }
 
 
@@ -246,7 +246,7 @@ function checkSession()
     // TODO redirect to error page
     // write access to local storage denied to application
     //alert('FATAL ERROR: ACCESS DENIED TO LOCAL STORAGE');
-    window.location.href = "error/error.html";
+    window.location = "error/error.html";
   } 
 
 }
