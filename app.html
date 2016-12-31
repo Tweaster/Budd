@@ -91,7 +91,7 @@
     <script>
 
 
-    function onDeviceReady()
+    function onAppHTMLLoad()
     {
 
       if (typeof(Storage) !== "undefined") 
@@ -120,7 +120,7 @@
     }
 
 
-    document.addEventListener("deviceready", onDeviceReady, false);
+    document.addEventListener("deviceready", onAppHTMLLoad, false);
 
     $(document).ready(function() 
     {
@@ -134,7 +134,7 @@
 
         if( !window.isphone ) 
         {
-            onDeviceReady();
+            onAppHTMLLoad();
         }
     });
     
