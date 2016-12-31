@@ -1,4 +1,13 @@
 
+
+
+
+
+
+
+
+
+
 function hashToString(dataStr)
 {
   var result = "";
@@ -143,7 +152,6 @@ function checkSession()
 {
   if (typeof(Storage) !== "undefined") 
   {
-
       $('.form').find('input, textarea').on('keyup blur focus', function (e) {
   
       var $this = $(this),
@@ -187,9 +195,7 @@ function checkSession()
       $(target).fadeIn(600);
       
     });
-
-
-
+      
 
       $(document.body).css('visibility', 'hidden');
 
