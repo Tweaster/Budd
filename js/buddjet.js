@@ -1398,24 +1398,27 @@ function applyTheme()
 
 function tapholdEventHandler(evt)
 {
-  var target = $(evt.target);
-  if (target.is('div.ui-expense-label-less-compact') || target.is('div.ui-expense-label'))
+  if (pro_version)
   {
-    var id = $(target).attr("data-expense");
-    var category = $(target).attr("data-category");
-    if (id !== null && typeof(id !== "undefined") && category !== null && typeof(category !== "undefined"))
+    var target = $(evt.target);
+    if (target.is('div.ui-expense-label-less-compact') || target.is('div.ui-expense-label'))
     {
-      injectCustomizeEntryDialogContent(id, category);
-      $('#setting-dialog').modal();
+      var id = $(target).attr("data-expense");
+      var category = $(target).attr("data-category");
+      if (id !== null && typeof(id !== "undefined") && category !== null && typeof(category !== "undefined"))
+      {
+        injectCustomizeEntryDialogContent(id, category);
+        $('#setting-dialog').modal();
+      }
     }
-  }
-  else if (target.is('li.category-divider')) 
-  {
-    var category = $(target).attr("data-category");
-    if (category !== null && typeof(category !== "undefined"))
+    else if (target.is('li.category-divider')) 
     {
-      injectCustomizeCategoryDialogContent(category);
-      $('#setting-dialog').modal();
+      var category = $(target).attr("data-category");
+      if (category !== null && typeof(category !== "undefined"))
+      {
+        injectCustomizeCategoryDialogContent(category);
+        $('#setting-dialog').modal();
+      }
     }
   }
 }
