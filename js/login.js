@@ -147,7 +147,7 @@ function checkSession()
       $('.form').find('input, textarea').on('keyup blur focus', function (e) {
   
       var $this = $(this),
-          label = $this.prev('label');
+          label = $this.parent().prev('label');
 
         if (e.type === 'keyup') {
           if ($this.val() === '') {
