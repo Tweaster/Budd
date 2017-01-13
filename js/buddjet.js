@@ -379,7 +379,7 @@ function tendencyChartData(category)
       caption += '(' + p + ')';
       chartData.push({
           "caption": caption,
-          "amount": amount,
+          "amount": Math.floor(amount),
           "budgeted": Math.floor(budgeted),
           "income" : Math.floor(income),
           "color" : "#ff2655",
@@ -511,9 +511,9 @@ function generateExpenseChartData(currentContext, category)
             }
           }
         }
-        income = Math.floor(income);
-        expense = Math.floor(expense);
-        var balance = income - expense;
+        income = Math.floor(income + 0.5);
+        expense = Math.floor(expense + 0.5);
+        var balance = Math.floor(income - expense);
         chartData.push({
             "caption": "Income (+" + income.toString() + "$)",
             "budgeted": income,
@@ -604,22 +604,24 @@ function generateExpenseChartData(currentContext, category)
             }
           }
         }
-        var balance = income - expense;
+        income = Math.floor(income + 0.5);
+        expense = Math.floor(expense + 0.5);
+        var balance = Math.floor(income - expense);
         chartData.push({
             "caption": "Income (+" + income.toString() + "$)",
-            "amount": Math.floor(income),
+            "amount": income,
             "budgeted": Math.floor(budgetedIncome),
             "color" : "#ff2655"
         });
         chartData.push({
             "caption": "Expense (-" + expense.toString() + "$)",
-            "amount": Math.floor(-expense),
+            "amount": -expense,
             "budgeted": Math.floor(-budgetedExpense),
             "color" : "#ff2655"
         });
         chartData.push({
             "caption": "Balance (" + balance.toString() + "$)",
-            "amount": Math.floor(balance),
+            "amount": balance,
             "budgeted": Math.floor(budgetedIncome - budgetedExpense),
             "color" : "#ff2655"
         });
@@ -1424,6 +1426,13 @@ function tapholdEventHandler(evt)
 }
 
 
+function openSettingsDialog()
+{
+  injectSettingsDialogContent();
+  $('#setting-dialog').modal();
+}
+
+
 
 function postStart()
 {
@@ -1454,7 +1463,8 @@ function postStart()
 
     if (category != 'income')
     {
-      expensesHTML += categoryEntryHTML(category, caption);
+      if (user_data.categories[i].expenses.length !== 0)
+        expensesHTML += categoryEntryHTML(category, caption);
     }
     else
     {
@@ -1475,8 +1485,17 @@ function postStart()
       var expense = user_data.categories[i].expenses[j];
       expenseEntry(expense.caption , expense.frequency, expense.value, expense.id, category);
     }
-    $('.' + category + '-monthly-total').text(m.toString() + '$');
-    $('.' + category + '-yearly-total').text(y.toString() + '$');
+
+    if (user_data.categories[i].expenses.length !== 0)
+    {
+      $('.' + category + '-monthly-total').text(m.toString() + '$');
+      $('.' + category + '-yearly-total').text(y.toString() + '$');
+    }
+
+    if (user_data.categories[i].expenses.length === 0)
+    {
+      $($('#' + category + '-sidebar-entry').parent()).remove();
+    }
     
   }
 
@@ -1515,6 +1534,7 @@ function postStart()
     balanceBarChart = AmCharts.makeChart("expenses-vs-prevision-barchart", {
           "theme": dark_theme ? "dark" : "light",
           "type": "serial",
+          "mouseWheelScrollEnabled": false,
           "valueAxes": [{
               "stackType": "3d",
               "unit": "$",
@@ -1601,6 +1621,7 @@ function postStart()
 
       tendencyBarChart = AmCharts.makeChart( "tendency-barchart", {
         "type": "serial",
+        "mouseWheelScrollEnabled": false,
         "addClassNames": true,
         "theme": dark_theme ? "dark" : "light",
         "autoMargins": true,
@@ -1647,10 +1668,11 @@ function postStart()
           "bulletColor": dark_theme ? "#FFFFFF" : "#000000",
           "useLineColorForBulletBorder": true,
           "bulletBorderThickness": 3,
-          "fillAlphas": 0,
+          "fillAlphas": 0.2,
           "lineAlpha": 1,
           "title": "Expenditure",
           "valueField": "amount",
+          "type": "smoothedLine",
           "startEffect": "easyOutSine",
           "dashLengthField": "dashLengthLine"
         },
@@ -1669,6 +1691,7 @@ function postStart()
           "title": "Income",
           "valueField": "income",
           "startEffect": "easyOutSine",
+          "type": "smoothedLine",
           "dashLengthField": "dashLengthLine"
         } ,
         {
@@ -1684,6 +1707,7 @@ function postStart()
           "fillAlphas": 0,
           "lineAlpha": 1,
           "title": "Budgeted Income",
+          "type": "smoothedLine",
           "valueField": "budgetedIncome",
           "startEffect": "easyOutSine",
           "dashLengthField": "dashLengthLine"
@@ -1749,6 +1773,7 @@ function postStart()
 
 
     $("#validate-new-amount-modal-dialog-btn").unbind().click( fetchEntryFromDialog);
+    $("#btn-settings").unbind().click( openSettingsDialog);
     $("#modal-dialog-input-amount").unbind().keydown( fetchEntryFromDialog);
 
     $("#tutorial-dialog").on('hidden.bs.modal', function () {
