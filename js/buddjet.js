@@ -68,10 +68,11 @@ function launchTutorial()
 
   $('#tutorial-dialog > .modal-dialog').css("width", (w + 30).toString() + "px");
 
-  var html = '<iframe width="' + w.toString()+ '" height="' + h.toString() + '" src="https://www.youtube.com/embed/UmInkhWS0ao" frameborder="0" allowfullscreen id="tutorial-video-container"></iframe>';
+  var html = '<iframe width="' + w.toString()+ '" height="' + h.toString() + '" src="https://www.youtube.com/embed/lxex6xU60-g" frameborder="0" allowfullscreen id="tutorial-video-container"></iframe>';
   $('#tutorial-dialog-content').html(html);
 
   $('#tutorial-dialog').modal();  
+  centerModalDialog();
 }
 
 
@@ -750,10 +751,13 @@ function currentAmountModal(expenseId, category, isExpenseDialog)
     $('#modal-dialog-input-label').text('Budget Prevision: ');
     $('#expense-entry-dialog-header').html('<button type="button" class="close" data-dismiss="modal">&times;</button>&nbsp;&nbsp;' + expenseObjects[0].caption + ' - Budget Prevision: ');
   }
-    
+  
+  $("#expense-entry-dialog").modal();
+  centerModalDialog();
 
   // attempt to grab focus after the modal dialog poped up. 
-  setTimeout(function(){ $('#modal-dialog-input-amount').focus(); }, 200);
+  setTimeout(function(){ $('#modal-dialog-input-amount').focus(); }, 50);
+
   
 }
 
@@ -785,12 +789,12 @@ function budgetInputUI(expenseId, category, amount)
 {
   if (typeof(amount) == "undefined")
     alert(expenseId + category);
-  return '<div class="ui-expense-amount-hidden"> <a href="#" id="ui-expense-amount' + expenseId + '" data-toggle="modal" data-target="#expense-entry-dialog"  class="ui-fake-input" onclick="currentAmountModal(\'' + expenseId + '\', \'' + category + '\', false)"><div class="inner-fake-input">' + amount.toString() + '$</div></a></div>';
+  return '<div class="ui-expense-amount-hidden"> <a href="#" id="ui-expense-amount' + expenseId + '"  class="ui-fake-input" onclick="currentAmountModal(\'' + expenseId + '\', \'' + category + '\', false)"><div class="inner-fake-input">' + amount.toString() + '$</div></a></div>';
 }
 
 function expenseInputUI(expenseId, category, amount) 
 {
-  return '<div class="ui-current-amount"> <a href="#" id="ui-current-amount' + expenseId + '" data-toggle="modal" data-target="#expense-entry-dialog"  class="ui-fake-input" onclick="currentAmountModal(\'' + expenseId + '\', \'' + category + '\', true)"><div class="inner-fake-input">' + amount.toString() + '$</div></a></div>';
+  return '<div class="ui-current-amount"> <a href="#" id="ui-current-amount' + expenseId + '"  class="ui-fake-input" onclick="currentAmountModal(\'' + expenseId + '\', \'' + category + '\', true)"><div class="inner-fake-input">' + amount.toString() + '$</div></a></div>';
 }
 
 
@@ -1411,6 +1415,8 @@ function tapholdEventHandler(evt)
       {
         injectCustomizeEntryDialogContent(id, category);
         $('#setting-dialog').modal();
+
+        centerModalDialog(); 
       }
     }
     else if (target.is('li.category-divider')) 
@@ -1420,6 +1426,8 @@ function tapholdEventHandler(evt)
       {
         injectCustomizeCategoryDialogContent(category);
         $('#setting-dialog').modal();
+
+        centerModalDialog();
       }
     }
   }
@@ -1430,6 +1438,7 @@ function openSettingsDialog()
 {
   injectSettingsDialogContent();
   $('#setting-dialog').modal();
+  centerModalDialog();
 }
 
 

@@ -860,6 +860,7 @@ div[class$="-monthly-total"], div[class$="-yearly-total"] {
     width: 470px;
     padding-top: 100px;
     outline: 0;
+    overflow: scroll; 
     /*background: url(./img/large-landscape-bgnd.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -1027,9 +1028,43 @@ background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
 /*********** Bootstrap Modal **********/
 
 
+.glyphicon-modal-window:before {
+  content: "\e237";
+}
+
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+  margin-right: 15px;
+}
+
+.close:hover,
+.close:focus {
+  color: #a00;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+
+button.close {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
 .modal-open {
   overflow: hidden;
 }
+
 .modal {
   position: fixed;
   top: 0;
@@ -1042,6 +1077,8 @@ background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
   -webkit-overflow-scrolling: touch;
   outline: 0;
 }
+
+/*
 .modal.fade .modal-dialog {
   -webkit-transition: -webkit-transform .3s ease-out;
        -o-transition:      -o-transform .3s ease-out;
@@ -1057,18 +1094,27 @@ background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
        -o-transform: translate(0, 0);
           transform: translate(0, 0);
 }
+*/
+
+
+.modal.fade .modal-dialog {
+    opacity: 0;
+}
+
 .modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
+
 .modal-dialog {
   position: relative;
-  width: 330px;
-  margin: 120px auto;
+  margin: 10px;
+  opacity: 0;
 }
+
 .modal-content {
   position: relative;
-  background-color: #999;
+  background-color: #fff;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
   border: 1px solid #999;
@@ -1078,6 +1124,7 @@ background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
           box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -1087,43 +1134,44 @@ background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
   z-index: 20;
   background-color: #000;
 }
+
 .modal-backdrop.fade {
   filter: alpha(opacity=0);
   opacity: 0;
 }
 .modal-backdrop.in {
-  filter: alpha(opacity=76);
-  opacity: .75;
+  filter: alpha(opacity=50);
+  opacity: .5;
 }
 .modal-header {
     background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#222));
     background: -moz-gradient(linear, left top, left bottom, from(#333), to(#222));
     background: -o-gradient(linear, left top, left bottom, from(#333), to(#222));
     background: -ms-gradient(linear, left top, left bottom, from(#333), to(#222));
-  padding: 5px 15px;
+  padding: 5px 0px;
   border-bottom: 1px solid #bbb;
+  overflow: hidden;
   color: #eee;
+  width: 100%;
 }
+
 .modal-header .close {
   margin-top: -2px;
 }
 .modal-title {
   margin: 0;
+  margin-left: 15px;
   line-height: 1.42857143;
 }
 .modal-body {
-    background: #e1e1e1;
   position: relative;
-  padding: 10px;
+  padding: 15px;
 }
 .modal-footer {
-  padding: 10px;
+  padding: 10px 0px;
   text-align: right;
-  border-top: 1px solid #bbb;
-  background: -webkit-gradient(linear, left top, left bottom, from(#bbb), to(#888));
-    background: -moz-gradient(linear, left top, left bottom, from(#bbb), to(#888));
-    background: -o-gradient(linear, left top, left bottom, from(#bbb), to(#888));
-    background: -ms-gradient(linear, left top, left bottom, from(#bbb), to(#888));
+  border-top: 1px solid #e5e5e5;
+  width: 100%;
 }
 .modal-footer .btn + .btn {
   margin-bottom: 0;
@@ -1142,6 +1190,63 @@ background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
   height: 50px;
   overflow: scroll;
 }
+.modal-header:before,
+.modal-header:after,
+.modal-footer:before,
+.modal-footer:after {
+  display: table;
+  white-space: pre;
+}
+
+.modal-header:after,
+.modal-footer:after {
+  clear: both;
+}
+
+.modal-dialog, .modal-content, .modal-body
+{
+    max-width: 350px;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    margin: 60px auto;
+  }
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  }
+  .modal-sm {
+    width: 300px;
+  }
+}
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+  }
+}
+
+.validate-modal-dialog {
+    padding: 0.3em 0.5em;
+    margin: 0px 15px;
+    line-height: 1.5em;
+    display: inline-block;
+    background: -webkit-gradient(linear, left top, left bottom, from(#bbb), to(#888));
+    background: -moz-gradient(linear, left top, left bottom, from(#bbb), to(#888));
+    background: -o-gradient(linear, left top, left bottom, from(#bbb), to(#888));
+    background: -ms-gradient(linear, left top, left bottom, from(#bbb), to(#888));
+    background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
+    border: 1px solid #555;
+    font-weight: bold;
+    color: #444;
+    /*box-shadow*/
+    -webkit-box-shadow: 1px 1px 3px #777;
+    -moz-box-shadow: 1px 1px 3px #777;
+    box-shadow: 1px 1px 3px #777;
+    white-space: nowrap;
+}
+
+
 
 
 
@@ -1170,29 +1275,29 @@ background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
 }
 
 
+
+
+#tutorial-dialog > .modal-dialog > .modal-content, #tutorial-dialog > .modal-dialog > .modal-body
+{
+    max-width: 100%;
+    padding: 0px;
+    width: 100%;
+    height:auto;
+} 
+
 #tutorial-dialog > .modal-dialog {
+  max-width: 90%;
   position: relative;
   width: 90%;
   margin: 5% auto;
 }
 
-#tutorial-dialog > .modal-dialog > .modal-content 
-{
-    padding: 0px;
-    width: auto;
-    height:auto;
-} 
 
 #tutorial-video-container
 {
     margin: 0px;
     padding: 0px;
 }
-
-
-
-
-
 
 
 
@@ -1477,10 +1582,6 @@ background: gradient(linear, left top, left bottom, from(#bbb), to(#888));
         margin-left: -10px;
     }
 
-    #setting-dialog > .modal-dialog > .modal-content 
-    {
-        width: 270px;
-    } 
 
 
     .TabbedPanelsTab 

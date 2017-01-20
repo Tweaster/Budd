@@ -158,6 +158,16 @@ var settings_dialog_content_frame = `
 </div>`;
 
 
+function centerModalDialog()
+{
+  $('.modal.fade.in > .modal-dialog').css("opacity", "0");
+  $('.modal.fade.in > .modal-dialog').css("margin-left", "-350px");
+  var hmargin = Math.floor(($(window).width() - $('.modal.fade.in > .modal-dialog > .modal-content').width()) / 2);
+  $('.modal.fade.in > .modal-dialog').animate({ left : "0px", marginLeft:  hmargin.toString() + "px", opacity : "1"}, 500); 
+}
+
+
+
 function adjustHistory()
 {
   number_of_displayed_months = Number($('#settings-history-combo').val());
@@ -455,17 +465,24 @@ function injectSettingsDialogContent()
   populateCategoryCombo();
   populateAllItemsCombo();
 
-  $('#btn-add-new-entry').unbind().click(addExpense);
-  $('#btn-delete-entry').unbind().click(removeExpense);
-  $('#btn-rename-entry').unbind().click(renameExpense);
-  $('#btn-rename-category').unbind().click(renameCategory);
-  $('#btn-validate-settings').unbind().click(validateSettings);
-  $('#btn-logout').unbind().click(logMeOut);
 
-  $('#btn-launch-tutorial').unbind().click(launchTutorialFromSettings);  
+  setTimeout(
+    function()
+    {
+      $('#btn-add-new-entry').unbind().click(addExpense);
+      $('#btn-delete-entry').unbind().click(removeExpense);
+      $('#btn-rename-entry').unbind().click(renameExpense);
+      $('#btn-rename-category').unbind().click(renameCategory);
+      $('#btn-validate-settings').unbind().click(validateSettings);
+      $('#btn-logout').unbind().click(logMeOut);
 
-  $('#settings-history-combo').val(number_of_displayed_months);
-  $('#settings-skin-combo').val(dark_theme ? "dark" : "light");
+      $('#btn-launch-tutorial').unbind().click(launchTutorialFromSettings);  
+
+      $('#settings-history-combo').val(number_of_displayed_months);
+      $('#settings-skin-combo').val(dark_theme ? "dark" : "light");
+    },
+    100
+  );
 }
 
 function injectCustomizeEntryDialogContent(id, category)

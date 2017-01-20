@@ -156,6 +156,8 @@
 
 -->
 
+
+
     
 
     <script>
@@ -195,11 +197,11 @@
     $(document).ready(function() 
     {
         // are we running in native app or in a browser?
-        window.isphone = false;
+        window.isphone = true;
         if(document.URL.indexOf("http://") === -1 
             && document.URL.indexOf("https://") === -1) 
         {
-            window.isphone = true;
+            window.isphone = false;
         }
 
         if( !window.isphone ) 
@@ -353,7 +355,8 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" >
-        Settings
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Settings</h4>
       </div>
       <div class="modal-body" id="setting-dialog-content">
 
@@ -378,7 +381,8 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" >
-        <button type="button" class="close" data-dismiss="modal">&times;</button>&nbsp;&nbsp;Tutorial - How to use Buddjet
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tutorial - How to use Buddjet</h4>
       </div>
       <div class="modal-body" id="tutorial-dialog-content">
 

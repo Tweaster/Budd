@@ -980,7 +980,36 @@ background: gradient(linear, left top, left bottom, from(#333), to(#222));
 
 /*********** Bootstrap Modal **********/
 
+.glyphicon-modal-window:before {
+  content: "\e237";
+}
 
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+  margin-right: 15px;
+}
+.close:hover,
+.close:focus {
+  color: #a00;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+button.close {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
 .modal-open {
   overflow: hidden;
 }
@@ -996,6 +1025,7 @@ background: gradient(linear, left top, left bottom, from(#333), to(#222));
   -webkit-overflow-scrolling: touch;
   outline: 0;
 }
+/*
 .modal.fade .modal-dialog {
   -webkit-transition: -webkit-transform .3s ease-out;
        -o-transition:      -o-transform .3s ease-out;
@@ -1011,14 +1041,20 @@ background: gradient(linear, left top, left bottom, from(#333), to(#222));
        -o-transform: translate(0, 0);
           transform: translate(0, 0);
 }
+*/
+
+
+.modal.fade .modal-dialog {
+    opacity: 0;
+}
 .modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
 .modal-dialog {
   position: relative;
-  width: 330px;
-  margin: 120px auto;
+  margin: 10px;
+  opacity: 0;
 }
 .modal-content {
   position: relative;
@@ -1054,20 +1090,23 @@ background: gradient(linear, left top, left bottom, from(#333), to(#222));
     background: -moz-gradient(linear, left top, left bottom, from(#333), to(#1b1b1b));
     background: -o-gradient(linear, left top, left bottom, from(#333), to(#1b1b1b));
     background: -ms-gradient(linear, left top, left bottom, from(#333), to(#1b1b1b));
-  padding: 5px 15px;
+  padding: 5px 0px;
+  overflow: hidden;
+  color: #eee;
   border-bottom: 1px solid #333;
+  width: 100%;
 }
 .modal-header .close {
   margin-top: -2px;
 }
 .modal-title {
   margin: 0;
+  margin-left: 15px;
   line-height: 1.42857143;
 }
 .modal-body {
-    background: #2b2b2b;
+  padding: 15px;
   position: relative;
-  padding: 10px;
 }
 .modal-footer {
   padding: 10px;
@@ -1095,9 +1134,42 @@ background: gradient(linear, left top, left bottom, from(#333), to(#222));
   height: 50px;
   overflow: scroll;
 }
+.modal-header:before,
+.modal-header:after,
+.modal-footer:before,
+.modal-footer:after {
+  display: table;
+  white-space: pre;
+}
+
+.modal-header:after,
+.modal-footer:after {
+  clear: both;
+}
 
 
+.modal-dialog, .modal-content, .modal-body
+{
+    max-width: 350px;
+}
 
+@media (min-width: 768px) {
+  .modal-dialog {
+    margin: 60px auto;
+  }
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  }
+  .modal-sm {
+    width: 300px;
+  }
+}
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+  }
+}
 
 #modal-dialog-input-amount {
     width: 100px;
@@ -1123,18 +1195,23 @@ background: gradient(linear, left top, left bottom, from(#333), to(#222));
 }
 
 
+
+
+#tutorial-dialog > .modal-dialog > .modal-content, #tutorial-dialog > .modal-dialog > .modal-body
+{
+    max-width: 100%;
+    padding: 0px;
+    width: 100%;
+    height:auto;
+} 
+
 #tutorial-dialog > .modal-dialog {
+  max-width: 90%;
   position: relative;
   width: 90%;
   margin: 5% auto;
 }
 
-#tutorial-dialog > .modal-dialog > .modal-content 
-{
-    padding: 0px;
-    width: auto;
-    height:auto;
-} 
 
 #tutorial-video-container
 {
@@ -1429,11 +1506,6 @@ background: gradient(linear, left top, left bottom, from(#333), to(#222));
     .ui-expense-amount, .ui-monthly-amount , .ui-yearly-amount, .ui-current-amount {       
         margin-left: -10px;
     }
-
-    #setting-dialog > .modal-dialog > .modal-content 
-    {
-        width: 270px;
-    } 
 
 
     .TabbedPanelsTab 
