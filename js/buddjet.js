@@ -207,7 +207,9 @@ function applyChange(target, changeCmd)
           var item = findItem(changeCmd.category, changeCmd.id, target);
           if (item !== null && item.monthlyTotals !== null)
           {
-            item.monthlyTotals[changeCmd.index] = doubleDigitPrecision(Number(changeCmd.amount));
+            item.monthlyTotals[changeCmd.index] += doubleDigitPrecision(Number(changeCmd.amount));
+            updateChartsHandler(null);
+            updateCurrentCategoryTotals(changeCmd.category );
           }
         }
         break;
@@ -1264,7 +1266,7 @@ function currentExpenseUpdate(id, category, amountToAdd)
     type : 'change-expense-amount',
     category : category,
     id : id,
-    amount : expenseObjects[0].monthlyTotals[current_displayed_month],
+    amount : /*expenseObjects[0].monthlyTotals[current_displayed_month]*/ doubleDigitPrecision(amountToAdd),
     index : current_displayed_month
   };
 
